@@ -1,0 +1,52 @@
+{% extends "store/layout.html" %}
+{% block title %}
+Home
+{% endblock %}
+{% block content %}
+    <div class="d-flex flex-column justify-content-center">
+        <div class="d-flex justify-content-center py-3">
+            <div>
+                <iframe width="560" height="315" src="{{music.song_url}}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                <p style="font-size: 22px"><strong>{{ music.artist }}</strong> - {{ music.song_title }}</p>
+            </div>
+        </div>
+        
+        <div style="height: 400px; overflow: auto; background-color:#566573">
+            {% if music_list %}
+                <table class="table table-responsive w-100 d-block d-md-table">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for song in music_list %}
+                        {% if song.id == music.id %}
+                            <tr style="background-color: #333; color: #fff">
+                                <td><a style="color: #f4f4f4" href="/store/{{ song.genre }}/play/?songid={{ song.id }}">{{ song.song_title }}</a></td>
+                                <td>{{ song.artist }}</td>
+                                <td>{{ song.genre }}</td>
+                                <td>{{ song.created }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td><a style="color: #f4f4f4" href="/store/{{ song.genre }}/play/?songid={{ song.id }}">{{ song.song_title }}</a></td>
+                                <td>{{ song.artist }}</td>
+                                <td>{{ song.genre }}</td>
+                                <td>{{ song.created }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No messages have been logged. Use the.</p>
+            {% endif %}
+        </div>
+    </div>
+    
+
+{% endblock %}
